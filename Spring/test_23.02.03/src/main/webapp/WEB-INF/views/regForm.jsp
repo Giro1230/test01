@@ -27,6 +27,10 @@
             <td>전화번호</td>
             <td><input type="text" name="tel" placeholder="전화번호를 입력하세요"></td>
         </tr>
+        <tr>
+            <td><input type="submit" value="회원가입"></td>
+            <td><input type="reset" value="다시하기"></td>
+        </tr>
     </table>
 </form>
 
@@ -35,15 +39,19 @@
         const $ = (val) => document.querySelector(val);
         const checker = new XMLHttpRequest();
         checker.onload = () =>{
-            let result = JSON.parse('result');
+            let result = ${result};
+            alert(result);
             if (result != 1){
                 alert('사용가능한 아이디입니다.');
             } else {
                 alert('중복된 아이디 입니다.');
             }
         }
-        checker.open('post','idCheck.do')
-        checker.send($('#user_id').value);
+
+        let id = $('#user_id').value;
+
+        checker.open('get','idCheck.do?id='+id)
+        checker.send();
     }
 </script>
 </body>

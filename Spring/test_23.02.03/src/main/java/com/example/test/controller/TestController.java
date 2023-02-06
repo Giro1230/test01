@@ -2,6 +2,8 @@ package com.example.test.controller;
 
 import com.example.test.mapper.TestMapper;
 import com.example.test.vo.TestVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,11 +41,11 @@ public class TestController {
         else return "checkForm";
     }
 
-    @PostMapping("idCheck.do")
-    public void idCheck(String id, Model model){
-        System.out.println(id);
-        int result = mapper.idChecker(id);
+    @GetMapping("idCheck.do")
+    public String idCheck(String id, Model model) throws JsonProcessingException {
+        String result = new ObjectMapper().writeValueAsString(mapper.idChecker(id));
         System.out.println(result);
         model.addAttribute("result", result);
+        return "regForm";
     }
 }
